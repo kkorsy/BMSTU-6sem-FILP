@@ -1,0 +1,20 @@
+(defun into-one(lst res)
+    (cond ((null lst) res)
+          ((atom lst) (cons lst res))
+          (t (into-one (car lst)
+                       (into-one (cdr lst) res)))))
+
+(defun insert-into(lst el)
+    (cond ((null lst) (cons el Nil))
+          ((< el (car lst))
+                (cons el lst))
+          (t (cons (car lst)
+                   (insert-into (cdr lst) el)))))
+
+(defun _my_sort(lst res)
+    (cond ((null lst) res)
+          (t (_my_sort (cdr lst) 
+                       (insert-into res (car lst))))))
+
+(defun my-sort(lst)
+    (_my_sort (into-one lst Nil) Nil))

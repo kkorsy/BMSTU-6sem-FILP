@@ -1,0 +1,95 @@
+\chapter{Практические задания}
+
+\textbf{1. Представить следующие списки в виде списочных ячеек.}
+
+\includeimage
+{task11} % Имя файла без расширения (файл должен быть расположен в директории inc/img/)
+{f} % Обтекание (без обтекания)
+{H} % Положение рисунка (см. figure из пакета float)
+{0.9\textwidth} % Ширина рисунка
+{Задание №1 (часть 1)} % Подпись рисунка
+
+\includeimage
+{task12} % Имя файла без расширения (файл должен быть расположен в директории inc/img/)
+{f} % Обтекание (без обтекания)
+{H} % Положение рисунка (см. figure из пакета float)
+{0.6\textwidth} % Ширина рисунка
+{Задание №1 (часть 2)} % Подпись рисунка
+
+\textbf{2. Используя только функции CAR и CDR, написать выражения, возвращающие 1) второй; 2) третий; 3) четвертый элементы заданного списка.}
+
+\begin{enumerate}[label=\arabic*)]
+	\item (CAR (CDR '(a b c d e)))
+	\item (CAR (CDR (CDR '(a b c d e))))
+	\item (CAR (CDR (CDR (CDR '(a b c d e)))))
+\end{enumerate}
+
+\textbf{3. Что будет в результате вычисления выражений?}
+\begin{enumerate}[label=\alph*)]
+	\item (CAADR '((blue cube) (red pyramid))) \\
+	(CAR (CAR (CDR '((blue cube) (red pyramid)))))\\
+	(CAR (CAR '((red pyramid))))\\
+	(CAR '(red pyramid))\\
+	red\\
+	Ответ: red
+	
+	\item (CDAR '((abc) (def) (ghi)))\\
+	(CDR (CAR '((abc) (def) (ghi))))\\
+	(CDR '(abc))\\
+	Nil\\
+	Ответ: Nil
+	
+	\item (CADR '((abc) (def) (ghi)))\\
+	(CAR (CDR '((abc) (def) (ghi))))\\
+	(CAR '((def) (ghi)))\\
+	(def)\\
+	Ответ: (def)
+	
+	\item (CADDR '((abc) (def) (ghi)))\\
+	(CAR (CDR (CDR '((abc) (def) (ghi)))))\\
+	(CAR (CDR '((def) (ghi))))\\
+	(CAR '((ghi)))\\
+	(ghi)\\
+	Ответ: (ghi)
+\end{enumerate}
+
+\textbf{4. Напишите результат вычисления выражений и объясните как он получен.}
+
+\begin{enumerate}
+	\item (list 'Fred 'and 'Wilma) $\rightarrow$ (Fred and Wilma)
+	\item (list 'Fred '(and Wilma)) $\rightarrow$ (Fred (and Wilma))
+	\item (cons Nil Nil) $\rightarrow$ (Nil)
+	\item (cons T Nil) $\rightarrow$ (T)
+	\item (cons Nil T) $\rightarrow$ (Nil.T)
+	\item (list Nil) $\rightarrow$ (Nil)
+	\item (cons '(T) Nil) $\rightarrow$ ((T))
+	\item (list '(one two) '(free temp)) $\rightarrow$ ((one two) (free temp))
+	\item (cons 'Fred '(and Wilma)) $\rightarrow$ (Fred and Wilma)
+	\item (cons 'Fred '(Wilma)) $\rightarrow$ (Fred Wilma)
+	\item (list Nil Nil) $\rightarrow$ (Nil Nil)
+	\item (list T Nil) $\rightarrow$ (T Nil)
+	\item (list Nil T) $\rightarrow$ (Nil T)
+	\item (cons T (list Nil)) $\rightarrow$ (T Nil)
+	\item (list '(T) Nil) $\rightarrow$ ((T) Nil)
+	\item (cons '(one two) '(free temp)) $\rightarrow$ ((one two) free temp)
+\end{enumerate}
+
+\textbf{5. Написать лямбда-выражение и соответствующую функцию. Представить результаты в виде списочных ячеек.}
+
+\begin{enumerate}
+	\item Написать функцию (f ar1 ar2 ar3 ar4), возвращающую: ((ar1 ar2) (ar3 ar4)).\\
+	(defun f(ar1 ar2 ar3 ar4) (list (list ar1 ar2) (list ar3 ar4)))
+	
+	\item Написать функцию (f ar1 ar2), возвращающую: ((ar1) (ar2)).\\
+	(defun f(ar1 ar2) (list (list ar1) (list ar2)))
+	
+	\item Написать функцию (f ar1), возвращающую: (((ar1))).\\
+	(defun f(ar1) (list (list (list ar1))))
+\end{enumerate}
+
+\includeimage
+{task5} % Имя файла без расширения (файл должен быть расположен в директории inc/img/)
+{f} % Обтекание (без обтекания)
+{H} % Положение рисунка (см. figure из пакета float)
+{0.7\textwidth} % Ширина рисунка
+{Задание №5} % Подпись рисунка

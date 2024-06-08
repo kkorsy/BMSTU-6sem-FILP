@@ -1,0 +1,44 @@
+\chapter*{Практическая часть}
+
+\includelistingpretty
+	{../../../lab1.pro} % Имя файла с расширением (файл должен быть расположен в директории inc/lst/)
+	{Prolog} % Язык программирования (необязательный аргумент)
+	{Исходный код заданий лабораторной работы} % Подпись листинга
+
+Ниже приведены различные варианты вопросов и ответы на них.
+\begin{lstlisting}[language=Prolog]
+	car_info(brand_1, red, Name, City, Phone).
+/*Результат:
+Name=Ivanov, City=Moscow, Phone=12345678
+Name=Ivanov, City=Spb, Phone=13131313
+Name=Petrov, City=Moscow, Phone=14141414
+Name=Petrov, City=Spb, Phone=22222222
+4 Solutions
+*/
+	car_info(Brand, Color, "Ivanov", "Spb", Phone).
+/*Результат:
+Brand=brand_1, Color=red, Phone=13131313
+Brand=brand_2, Color=white, Phone=13131313
+Brand=brand_3, Color=white, Phone=13131313
+3 Solutions
+*/
+	car_info(Brand, _, "Sidorov", "Moscow", _).
+/*Результат:
+Brand=brand_2
+Brand=brand_3
+2 Solutions
+*/
+	phonebook(Name, _, address(City, _, _, 12)).
+/*Результат:
+Name=Sidorov, City=Moscow
+Name=Sidorov, City=Spb
+2 Solutions
+*/
+	car("Ivanov", _, _, Cost, _).
+/*Результат:
+Cost=100
+Cost=200
+Cost=100
+3 Solutions
+*/
+\end{lstlisting}

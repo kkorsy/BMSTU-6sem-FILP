@@ -1,0 +1,88 @@
+DOMAINS
+    list = integer*.
+    structed = element*.
+    element = i(integer); l(list); s(structed).
+
+PREDICATES
+    length_rec(list, integer, integer).
+    length(list, integer).
+    sum_rec(list, integer, integer).
+    sum(list, integer).
+    sum_odd_rec(list, integer, integer).
+    sum_odd(list, integer).
+    more_than(list, integer, list).
+    remove_one(list, integer, list).
+    remove_all(list, integer, list).
+    append(list, list, list).
+    
+    f(structed, structed).
+    even(list).
+    sum_even_rec(list, integer, integer).
+    max_elem_rec(list, integer, integer).
+    change(list, integer).
+
+CLAUSES
+    length_rec([], R, R).
+    length_rec([ _ | T ], Cur, R) :- C = Cur + 1,
+    				     length_rec(T, C, R).
+    length(L, R) :- length_rec(L, 0, R).
+    
+    sum_rec([], R, R).
+    sum_rec([ X | T ], Cur, R) :- C = Cur + X,
+    				  sum_rec(T, C, R).
+    sum(L, R) :- sum_rec(L, 0, R).
+    
+    sum_odd_rec([], R, R).
+    sum_odd_rec([_], R, R).
+    sum_odd_rec([_, Y | T], Cur, R) :- C = Cur + Y,
+    				       sum_odd_rec(T, C, R).
+    sum_odd(L, R) :- sum_odd_rec(L, 0, R).
+    
+    more_than([], _, []).
+    more_than([H1 | T1], N, [H1 | T]) :- H1 > N,
+    					 more_than(T1, N, T), !.
+    more_than([_ | T1], N, L) :- more_than(T1, N, L).
+    
+    remove_one([], _, []).
+    remove_one([H1 | T1], H1, T1) :- !.
+    remove_one([H1 | T1], N, [H1 | T]) :- remove_one(T1, N, T).
+    
+    remove_all([], _, []).
+    remove_all([H1 | T1], H1, L) :- remove_all(T1, H1, L), !.
+    remove_all([H1 | T1], N, [H1 | T]) :- remove_all(T1, N, T).
+    
+    append([], L, L).
+    append([H1 | T1], L, [H1 | T]) :- append(T1, L, T).
+    
+    
+    
+    even([]).
+    even([_, _ | T]) :- even(T).
+    
+    sum_even_rec([], R, R).
+    sum_even_rec([X | T], R, Cur) :- Z = X mod 2, Z = 0,
+    			  	     C = Cur + X,
+    			  	     sum_even_rec(T, R, C), !.
+    sum_even_rec([_ | T], R, Cur) :- sum_even_rec(T, R, Cur).
+    
+    max_elem_rec([], R, R).
+    max_elem_rec([X | T], R, Cur) :- X > Cur,
+    				     max_elem_rec(T, R, X), !.
+    max_elem_rec([_ | T], R, Cur) :- max_elem_rec(T, R, Cur).
+    
+    % L (even n) --> sum even
+    % L (odd n)  --> max elem
+    change(L, Y) :- even(L),
+    		    sum_even_rec(L, Y, 0), !.
+    change([H | T], Y) :- max_elem_rec(T, Y, H).
+    
+    f([], []).
+    f([i(X) | T], [i(X) | Res]) :- f(T, Res).
+    f([l(X) | T], [i(Y) | Res]) :- change(X, Y), 
+    				   f(T, Res).
+    f([s(X) | T], [s(Y) | Res]) :- f(X, Y),
+      				   f(T, Res).
+
+GOAL
+    max_elem_rec([3, 4, 5, 2, 1], R, 0).
+    %f( [i(1), i(2), s([i(1), i(2), s([i(1), i(2), l([1, 2, 3]), l([1, 2, 3, 4]) ]) ]) ] , R).
